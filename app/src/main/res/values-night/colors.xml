@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material A700 -->
+    <color name="primary">#00C853</color>
+    <color name="secondary">#00B8D4</color>
+</resources>

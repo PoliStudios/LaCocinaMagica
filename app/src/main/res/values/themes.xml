@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.LaCocinaMágica" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+    </style>
+
+    <style name="Theme.LaCocinaMágica" parent="Base.Theme.LaCocinaMágica" />
+
+    <style name="Theme.Button.Accept" parent="ThemeOverlay.Material3.Button">
+        <item name="android:colorBackground">@color/green</item>
+    </style>
+
+    <style name="Theme.Button.Cancel" parent="ThemeOverlay.Material3.Button">
+        <item name="android:colorBackground">@color/red</item>
+    </style>
+
+    <style name="Button.Primary" parent="ThemeOverlay.Material3.Button">
+        <item name="android:backgroundTint">@color/secondary</item>
+    </style>
+
+    <style name="Button.Secondary" parent="ThemeOverlay.Material3.Button">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="background">@drawable/button_outline</item>
+    </style>
+</resources>
