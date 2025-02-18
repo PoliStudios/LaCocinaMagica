@@ -24,4 +24,16 @@
         <item name="android:textColor">@color/gray</item>
         <item name="android:paddingHorizontal">16dp</item>
     </style>
+
+    <style name="Theme.Reels.Menu" parent="Base.Theme.LaCocinaMágica">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Theme.Reels.Menu.Desc" parent="Theme.Reels.Menu">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

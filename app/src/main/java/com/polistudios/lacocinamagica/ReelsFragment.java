@@ -8,6 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.polistudios.lacocinamagica.adapters.VideoAdapter;
+import com.polistudios.lacocinamagica.databinding.FragmentReelsBinding;
+import com.polistudios.lacocinamagica.models.VideoItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ReelsFragment#newInstance} factory method to
@@ -46,6 +53,8 @@ public class ReelsFragment extends Fragment {
         return fragment;
     }
 
+    FragmentReelsBinding b;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +67,15 @@ public class ReelsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        b = FragmentReelsBinding.inflate(inflater, container, false);
+
+        List<VideoItem> videos = new ArrayList<VideoItem>();
+        videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2024/08/16/226795_large.mp4", "", "", ""));
+        videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2025/01/03/250395_large.mp4", "", "", ""));
+
+        b.reelsViewPager.setAdapter(new VideoAdapter(videos, requireContext()));
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reels, container, false);
+        return b.getRoot();
     }
 }
