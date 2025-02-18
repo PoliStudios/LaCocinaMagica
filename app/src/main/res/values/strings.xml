@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">La Cocina Mágica</string>
+    <string name="app_name" translatable="false">La Cocina Mágica</string>
+
+    <string name="s_action_calendar">Calendar</string>
+    <string name="s_action_reels">Reels</string>
+    <string name="s_action_home">Home</string>
+    <string name="s_action_recipes">Recipes</string>
+    <string name="s_action_account">Account</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

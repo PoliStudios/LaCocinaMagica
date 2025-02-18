@@ -3,6 +3,7 @@
     <style name="Base.Theme.LaCocinaMágica" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/secondary</item>
     </style>
 
     <style name="Theme.LaCocinaMágica" parent="Base.Theme.LaCocinaMágica" />
@@ -22,6 +23,5 @@
     <style name="Button.Secondary" parent="ThemeOverlay.Material3.Button">
         <item name="android:textColor">@color/gray</item>
         <item name="android:paddingHorizontal">16dp</item>
-        <item name="background">@drawable/button_outline</item>
     </style>
 </resources>
