@@ -36,4 +36,8 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="Theme.AddRecipe" parent="Base.Theme.LaCocinaMágica">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

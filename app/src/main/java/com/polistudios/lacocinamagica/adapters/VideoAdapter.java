@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.polistudios.lacocinamagica.R;
 import com.polistudios.lacocinamagica.models.VideoItem;
 
@@ -41,7 +40,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.viewHolder> 
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.setData(position);
         VideoItem data = mVideosList.get(position);
-        Glide.with(context).load(mVideosList.get(position).profileURL).into(holder.mProfileImage);
     }
 
     @Override
