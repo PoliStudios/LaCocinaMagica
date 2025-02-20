@@ -77,7 +77,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.viewHolder> 
                 float w = (float) mediaPlayer.getVideoWidth();
                 float h = (float) mediaPlayer.getVideoHeight();
                 float a = w / h;
-                float s = mVideoView.getWidth() / mVideoView.getHeight();
+                float s = (float) mVideoView.getWidth() / mVideoView.getHeight();
                 float scaleX = 1.0f;
                 float scaleY = 1.0f;
 
