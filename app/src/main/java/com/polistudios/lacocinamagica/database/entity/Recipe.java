@@ -21,7 +21,7 @@ public class Recipe
 
     @ColumnInfo public int portions;
 
-    @ColumnInfo public String steps;
+    @ColumnInfo public String[] steps;
 
     @ColumnInfo public int idIngredientList;
 
@@ -32,7 +32,7 @@ public class Recipe
         Hard
     }
 
-    public Recipe(int id, int idUser, String title, String description, Difficulty difficulty, float time, int portions, String steps, int idIngredientList) {
+    public Recipe(int id, int idUser, String title, String description, Difficulty difficulty, float time, int portions, String[] steps, int idIngredientList) {
         this.id = id;
         this.idUser = idUser;
         this.title = title;
