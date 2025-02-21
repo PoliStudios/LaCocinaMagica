@@ -2,12 +2,19 @@ package com.polistudios.lacocinamagica;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.polistudios.lacocinamagica.adapters.VideoAdapter;
 import com.polistudios.lacocinamagica.databinding.FragmentReelsBinding;
 import com.polistudios.lacocinamagica.models.VideoItem;
@@ -72,6 +79,25 @@ public class ReelsFragment extends Fragment {
         List<VideoItem> videos = new ArrayList<VideoItem>();
         videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2024/08/16/226795_large.mp4", "", "", ""));
         videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2025/01/03/250395_large.mp4", "", "", ""));
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("reels");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("SUCCESS", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+                Log.w("ERROR", "Failed to read value.", error.toException());
+            }
+        });
 
         b.reelsViewPager.setAdapter(new VideoAdapter(videos, requireContext()));
 

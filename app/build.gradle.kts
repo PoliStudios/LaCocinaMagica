@@ -39,6 +39,10 @@ dependencies {
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
+
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
