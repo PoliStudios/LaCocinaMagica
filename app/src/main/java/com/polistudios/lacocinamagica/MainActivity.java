@@ -1,6 +1,7 @@
 package com.polistudios.lacocinamagica;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +10,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.FirebaseApp;
 import com.polistudios.lacocinamagica.databinding.ActivityMainBinding;
+import com.polistudios.lacocinamagica.lib.BCrypt;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding b;
@@ -51,5 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
+        FirebaseApp.initializeApp(this);
+        Log.d("PASSWORD GENERATE", BCrypt.hashpw("Miguel1128#22", BCrypt.gensalt(12)));
     }
 }

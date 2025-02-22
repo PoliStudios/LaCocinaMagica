@@ -1,8 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile =
+                file("C:\\Users\\migue\\OneDrive\\Documents\\GitHub\\LaCocinaMagica\\lcm.jks")
+            storePassword = "Miguel1128#22"
+            keyAlias = "cocina_magica"
+            keyPassword = "Miguel1128#22"
+        }
+    }
     namespace = "com.polistudios.lacocinamagica"
     compileSdk = 34
 

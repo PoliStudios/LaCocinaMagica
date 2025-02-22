@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +21,9 @@ import com.polistudios.lacocinamagica.databinding.FragmentReelsBinding;
 import com.polistudios.lacocinamagica.models.VideoItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,8 +80,6 @@ public class ReelsFragment extends Fragment {
         b = FragmentReelsBinding.inflate(inflater, container, false);
 
         List<VideoItem> videos = new ArrayList<VideoItem>();
-        videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2024/08/16/226795_large.mp4", "", "", ""));
-        videos.add(new VideoItem("", "https://cdn.pixabay.com/video/2025/01/03/250395_large.mp4", "", "", ""));
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("reels");
@@ -88,8 +89,26 @@ public class ReelsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("SUCCESS", "Value is: " + value);
+                ArrayList<HashMap<String, Object>> data = (ArrayList<HashMap<String, Object>>) dataSnapshot.getValue();
+                Log.d("REELS (DATA)", data.toString());
+                for (HashMap<String, Object> i : data)
+                {
+                    //public VideoItem(String idUser, String videoTitle, String videoDescription, String idRecipe, String shares, String likes, String videoURL) {
+                    String idUser = String.valueOf(i.get("idUser"));
+                    String title = String.valueOf(i.get("title"));
+                    String description = String.valueOf(i.get("description"));
+                    String idRecipe = String.valueOf(i.get("idRecipe"));
+                    String shares = String.valueOf(i.get("shares"));
+                    String likes = String.valueOf(i.get("likes"));
+                    String videoURL = String.valueOf(i.get("url"));
+
+                    VideoItem videoItem = new VideoItem(idUser, title, description, idRecipe, shares, likes, videoURL);
+                    Log.d("REELS (FOR LOOP)", videoItem.toString());
+                    videos.add(videoItem);
+                }
+
+                Log.d("REELS (VIDEOS)", videos.toString());
+                b.reelsViewPager.setAdapter(new VideoAdapter(videos, requireContext()));
             }
 
             @Override
@@ -98,8 +117,6 @@ public class ReelsFragment extends Fragment {
                 Log.w("ERROR", "Failed to read value.", error.toException());
             }
         });
-
-        b.reelsViewPager.setAdapter(new VideoAdapter(videos, requireContext()));
 
         // Inflate the layout for this fragment
         return b.getRoot();

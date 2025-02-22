@@ -1,53 +1,28 @@
 package com.polistudios.lacocinamagica.models;
 
 public class VideoItem {
-    public String id, videoURL, videoDescription, userId, profileURL;
+    public String idUser, videoTitle, videoDescription, idRecipe, shares, likes, videoURL;
 
-    public VideoItem(String id, String videoURL, String videoDescription, String userId, String profileURL) {
-        this.id = id;
-        this.videoURL = videoURL;
+    public VideoItem(String idUser, String videoTitle, String videoDescription, String idRecipe, String shares, String likes, String videoURL) {
+        this.idUser = idUser;
+        this.videoTitle = videoTitle;
         this.videoDescription = videoDescription;
-        this.userId = userId;
-        this.profileURL = profileURL;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    public void setVideoURL(String videoURL) {
+        this.idRecipe = idRecipe;
+        this.shares = shares;
+        this.likes = likes;
         this.videoURL = videoURL;
     }
 
-    public String getVideoDescription() {
-        return videoDescription;
-    }
-
-    public void setVideoDescription(String videoDescription) {
-        this.videoDescription = videoDescription;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getProfileURL() {
-        return profileURL;
-    }
-
-    public void setProfileURL(String profileURL) {
-        this.profileURL = profileURL;
+    @Override
+    public String toString() {
+        return "VideoItem{" +
+                "idUser='" + idUser + '\'' +
+                ", videoTitle='" + videoTitle + '\'' +
+                ", videoDescription='" + videoDescription + '\'' +
+                ", idRecipe='" + idRecipe + '\'' +
+                ", shares='" + shares + '\'' +
+                ", likes='" + likes + '\'' +
+                ", videoURL='" + videoURL + '\'' +
+                '}';
     }
 }

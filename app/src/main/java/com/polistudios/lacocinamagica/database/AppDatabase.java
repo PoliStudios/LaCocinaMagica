@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.polistudios.lacocinamagica.database.dao.RecipeDAO;
 import com.polistudios.lacocinamagica.database.entity.Recipe;
 
-@Database(entities = {Recipe.class}, version = 1)
+@Database(entities = {Recipe.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase
 {
     public abstract RecipeDAO recipeDAO();
