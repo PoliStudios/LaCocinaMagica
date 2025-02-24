@@ -7,7 +7,7 @@ android {
     signingConfigs {
         getByName("debug") {
             storeFile =
-                file("C:\\Users\\migue\\OneDrive\\Documents\\GitHub\\LaCocinaMagica\\lcm.jks")
+                file("C:\\Users\\SIGLOXXI PC23\\AndroidStudioProjects\\LaCocinaMagica\\lcm.jks")
             storePassword = "Miguel1128#22"
             keyAlias = "cocina_magica"
             keyPassword = "Miguel1128#22"

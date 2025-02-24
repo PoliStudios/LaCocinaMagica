@@ -2,18 +2,25 @@ package com.polistudios.lacocinamagica;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.polistudios.lacocinamagica.databinding.FragmentAddRecipeBinding;
+import com.polistudios.lacocinamagica.models.ListItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddRecipeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRecipeFragment extends Fragment {
+public class AddRecipeFragment extends Fragment  implements ListDialog.ListDialogListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,10 +62,29 @@ public class AddRecipeFragment extends Fragment {
         }
     }
 
+    FragmentAddRecipeBinding b;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        b = FragmentAddRecipeBinding.inflate(inflater, container, false);
+
+        b.addRecipeEtIngredients.setOnClickListener(v -> {
+            DialogFragment dialog = ListDialog.newInstance(new ArrayList<ListItem>());
+            dialog.show(getParentFragmentManager(), "NoticeDialogFragment");
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_recipe, container, false);
+        return b.getRoot();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
+
     }
 }

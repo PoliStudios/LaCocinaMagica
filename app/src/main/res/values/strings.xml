@@ -7,6 +7,22 @@
     <string name="s_action_recipes">Recipes</string>
     <string name="s_action_account">Account</string>
 
+    <string name="s_addRecipe_tvTitle">Title</string>
+    <string name="s_addRecipe_tvDesc">Description</string>
+    <string name="s_addRecipe_tvPortions">Portions</string>
+    <string name="s_addRecipe_tvTime">Time</string>
+    <string name="s_addRecipe_tvMinutes">minutes</string>
+    <string name="s_addRecipe_tvIngredients">Ingredients</string>
+    <string name="s_addRecipe_tvSteps">Steps</string>
+    <string name="s_addRecipe_tvDifficulty">Difficulty</string>
+
+    <string-array name="arr_difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
