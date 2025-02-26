@@ -9,6 +9,7 @@ import androidx.fragment.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.polistudios.lacocinamagica.databinding.FragmentAddRecipeBinding;
 import com.polistudios.lacocinamagica.models.ListItem;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * Use the {@link AddRecipeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRecipeFragment extends Fragment  implements ListDialog.ListDialogListener {
+public class AddRecipeFragment extends Fragment implements ListDialog.ListDialogListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,8 +71,8 @@ public class AddRecipeFragment extends Fragment  implements ListDialog.ListDialo
         b = FragmentAddRecipeBinding.inflate(inflater, container, false);
 
         b.addRecipeEtIngredients.setOnClickListener(v -> {
-            DialogFragment dialog = ListDialog.newInstance(new ArrayList<ListItem>());
-            dialog.show(getParentFragmentManager(), "NoticeDialogFragment");
+            DialogFragment dialog = ListDialog.newInstance("Ingredients", new ArrayList<ListItem>());
+            dialog.show(getChildFragmentManager(), "NoticeDialogFragment");
         });
 
         // Inflate the layout for this fragment
@@ -80,11 +81,11 @@ public class AddRecipeFragment extends Fragment  implements ListDialog.ListDialo
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
-
+        Toast.makeText(requireContext(), "Positive Click", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
-
+        Toast.makeText(requireContext(), "Negative Click", Toast.LENGTH_SHORT).show();
     }
 }

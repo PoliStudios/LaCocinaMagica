@@ -1,10 +1,14 @@
 package com.polistudios.lacocinamagica;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +28,14 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ListDialog extends DialogFragment {
+    public String listID;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_LIST = "param1";
 
-    // TODO: Rename and change types of parameters
     private ArrayList<ListItem> mList;
 
-    public ListDialog() {
-        // Required empty public constructor
+    public ListDialog(String id) {
+        listID = id;
     }
 
     /**
@@ -43,8 +45,8 @@ public class ListDialog extends DialogFragment {
      * @param list The list to display.
      * @return A new instance of fragment ListDialog.
      */
-    public static ListDialog newInstance(ArrayList<ListItem> list) {
-        ListDialog fragment = new ListDialog();
+    public static ListDialog newInstance(String id, ArrayList<ListItem> list) {
+        ListDialog fragment = new ListDialog(id);
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_LIST, list);
         fragment.setArguments(args);
@@ -52,8 +54,8 @@ public class ListDialog extends DialogFragment {
     }
 
     public interface ListDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String listID, ArrayList<ListItem> data);
-        public void onDialogNegativeClick(DialogFragment dialog, String listID, ArrayList<ListItem> data);
+        public void onDialogPositiveClick(DialogFragment dialog, String id, ArrayList<ListItem> data);
+        public void onDialogNegativeClick(DialogFragment dialog, String id, ArrayList<ListItem> data);
     }
     ListDialogListener listener;
 
@@ -81,6 +83,23 @@ public class ListDialog extends DialogFragment {
     }
 
     @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Build the dialog and set up the button click handlers.
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.dialog_list, null))
+                .setPositiveButton("Accept", (dialog, id) -> {
+                    // Send the positive button event back to the host activity.
+                    listener.onDialogPositiveClick(ListDialog.this, listID, mList);
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> {
+                    // Send the negative button event back to the host activity.
+                    listener.onDialogNegativeClick(ListDialog.this, listID, mList);
+                });
+        return builder.create();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         // Verify that the host activity implements the callback interface.
@@ -90,8 +109,8 @@ public class ListDialog extends DialogFragment {
             listener = (ListDialogListener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface. Throw exception.
-            throw new ClassCastException(requireContext()
-                    + " must implement NoticeDialogListener");
+            throw new ClassCastException(context
+                    + " must implement ListDialogListener");
         }
     }
 }
