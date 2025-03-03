@@ -13,6 +13,11 @@ public class ListItem implements Parcelable {
         checked = in.readByte() != 0;
     }
 
+    public ListItem(String value, boolean checked) {
+        this.value = value;
+        this.checked = checked;
+    }
+
     public static final Creator<ListItem> CREATOR = new Creator<ListItem>() {
         @Override
         public ListItem createFromParcel(Parcel in) {

@@ -6,15 +6,22 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.polistudios.lacocinamagica.database.AppDatabase;
+import com.polistudios.lacocinamagica.database.DatabaseCon;
+import com.polistudios.lacocinamagica.database.entity.Category;
 import com.polistudios.lacocinamagica.databinding.FragmentAddRecipeBinding;
 import com.polistudios.lacocinamagica.models.ListItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,8 +77,18 @@ public class AddRecipeFragment extends Fragment implements ListDialog.ListDialog
                              Bundle savedInstanceState) {
         b = FragmentAddRecipeBinding.inflate(inflater, container, false);
 
+        b.addRecipeEtCategory.setOnClickListener(v -> {
+            onEtCategoryAction();
+        });
+
+        b.addRecipeEtCategory.setOnFocusChangeListener((view, b1) -> {
+            if(b1)
+                onEtCategoryAction();
+        });
+
         b.addRecipeEtIngredients.setOnClickListener(v -> {
-            DialogFragment dialog = ListDialog.newInstance("Ingredients", new ArrayList<ListItem>());
+            ListDialog dialog = ListDialog.newInstance("Ingredients", new ArrayList<ListItem>());
+            dialog.addListener(this);
             dialog.show(getChildFragmentManager(), "NoticeDialogFragment");
         });
 
@@ -82,10 +99,59 @@ public class AddRecipeFragment extends Fragment implements ListDialog.ListDialog
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
         Toast.makeText(requireContext(), "Positive Click", Toast.LENGTH_SHORT).show();
+
+        switch(listID)
+        {
+            case "Category" -> {
+                String s = "";
+                for (ListItem item : data) {
+                    if (item.checked)
+                        s += item.value + ", ";
+                }
+                s = s.substring(0, s.length() - 2);
+
+                b.addRecipeEtCategory.setText(s);
+            }
+
+            case "Ingredients" -> {
+                String s = "";
+                for (ListItem item : data) {
+                    if (item.checked)
+                        s += item.value + "\n";
+                }
+
+                b.addRecipeEtIngredients.setText(s);
+            }
+        }
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog, String listID, ArrayList<ListItem> data) {
         Toast.makeText(requireContext(), "Negative Click", Toast.LENGTH_SHORT).show();
+    }
+
+    public void GenerateDialog(String id, ArrayList<ListItem> list)
+    {
+        ListDialog dialog = ListDialog.newInstance(id, list);
+        dialog.addListener(this);
+        dialog.show(getChildFragmentManager(), "NoticeDialogFragment");
+    }
+
+    public void onEtCategoryAction()
+    {
+        Log.d("AddRecipeFragment", "Category Clicked");
+        ArrayList<ListItem> list = new ArrayList<>();
+        try {
+            AppDatabase db = new DatabaseCon().instance(requireActivity().getApplicationContext());
+            List<String> str = Arrays.asList(b.addRecipeEtCategory.getText().toString().split(", "));
+            db.categoryDAO().getAll().forEach(category -> {
+                list.add(new ListItem(category.name, str.contains(category.name)));
+                Log.e("DATABASE", "onCreateView: " + category.toString());
+            });
+        } catch (Exception e) {
+            Log.e("DATABASE", e.toString());
+        }
+
+        GenerateDialog("Category", list);
     }
 }

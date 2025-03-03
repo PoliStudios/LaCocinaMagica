@@ -12,6 +12,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.FirebaseApp;
+import com.polistudios.lacocinamagica.database.AppDatabase;
+import com.polistudios.lacocinamagica.database.DatabaseCon;
+import com.polistudios.lacocinamagica.database.entity.Category;
 import com.polistudios.lacocinamagica.databinding.ActivityMainBinding;
 import com.polistudios.lacocinamagica.lib.BCrypt;
 import com.polistudios.lacocinamagica.models.ListItem;
@@ -27,6 +30,36 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         b = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+
+        try {
+            AppDatabase db = new DatabaseCon().instance(getApplicationContext());
+            db.categoryDAO().deleteAll();
+
+            Category c = new Category("Desayuno"); c.id = 0;
+            db.categoryDAO().insert(c);
+        } catch (Exception e) {
+            Log.e("DATABASE", e.toString());
+        }
+
+        try {
+            AppDatabase db = new DatabaseCon().instance(getApplicationContext());
+            Category c = new Category("Comida"); c.id = 1;
+            db.categoryDAO().insert(c);
+
+            c = new Category("Cena"); c.id = 2;
+            db.categoryDAO().insert(c);
+        } catch (Exception e) {
+            Log.e("DATABASE", e.toString());
+        }
+
+        try {
+            AppDatabase db = new DatabaseCon().instance(getApplicationContext());
+            Category c = new Category("Cena"); c.id = 2;
+            db.categoryDAO().insert(c);
+        } catch (Exception e) {
+            Log.e("DATABASE", e.toString());
+        }
+
 
         final CalendarFragment calendarFragment = new CalendarFragment();
         final ReelsFragment reelsFragment = new ReelsFragment();

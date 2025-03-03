@@ -17,10 +17,12 @@ import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import com.polistudios.lacocinamagica.databinding.DialogListBinding;
 import com.polistudios.lacocinamagica.models.ListItem;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +59,7 @@ public class ListDialog extends DialogFragment {
         public void onDialogPositiveClick(DialogFragment dialog, String id, ArrayList<ListItem> data);
         public void onDialogNegativeClick(DialogFragment dialog, String id, ArrayList<ListItem> data);
     }
-    ListDialogListener listener;
+    List<ListDialogListener> listeners = new ArrayList<ListDialogListener>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,21 +67,19 @@ public class ListDialog extends DialogFragment {
         if (getArguments() != null) {
             mList = getArguments().getParcelableArrayList(ARG_LIST);
         }
+        Log.e("TAG", "onCreate");
     }
+
+    DialogListBinding b;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        for(ListItem item : mList)
-        {
-            CheckBox chk = new CheckBox(requireContext());
-            chk.setText(item.value);
-            LinearLayout layout = container.findViewById(R.id.dialogList_listContainer);
-            layout.addView(chk);
-        }
+        b = DialogListBinding.inflate(inflater);
 
+        Log.e("TAG", "onCreateView");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.dialog_list, container, false);
+        return b.getRoot();
     }
 
     @Override
@@ -87,30 +87,59 @@ public class ListDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers.
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_list, null))
+        View v = inflater.inflate(R.layout.dialog_list, null);
+        builder.setView(v)
                 .setPositiveButton("Accept", (dialog, id) -> {
+                    LinearLayout ll = v.findViewById(R.id.dialogList_listContainer);
+                    for(int i = 0; i < ll.getChildCount(); i++)
+                    {
+                        CheckBox chk = (CheckBox) ll.getChildAt(i);
+                        mList.get((Integer) chk.getTag()).checked = chk.isChecked();
+                    }
+
                     // Send the positive button event back to the host activity.
-                    listener.onDialogPositiveClick(ListDialog.this, listID, mList);
+                    notifyOnDialogPositiveClick(ListDialog.this, listID, mList);
                 })
                 .setNegativeButton("Cancel", (dialog, id) -> {
                     // Send the negative button event back to the host activity.
-                    listener.onDialogNegativeClick(ListDialog.this, listID, mList);
+                    notifyOnDialogNegativeClick(ListDialog.this, listID, mList);
                 });
+
+        Log.e("TAG", "onCreateDialog");
+
+
+        for(int i = 0; i < mList.size(); i++)
+        {
+            ListItem item = mList.get(i);
+            CheckBox chk = new CheckBox(requireContext());
+            chk.setTag(i);
+            chk.setText(item.value);
+            chk.setChecked(item.checked);
+            LinearLayout ll = v.findViewById(R.id.dialogList_listContainer);
+            ll.addView(chk);
+        }
+
         return builder.create();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        // Verify that the host activity implements the callback interface.
+    public void addListener(ListDialogListener listener)
+    {
         try {
-            // Instantiate the NoticeDialogListener so you can send events to
-            // the host.
-            listener = (ListDialogListener) context;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface. Throw exception.
-            throw new ClassCastException(context
-                    + " must implement ListDialogListener");
+            listeners.add(listener);
+        } catch (Exception e) {
+            Log.e("ListDialog", "Error adding listener: ", e);
         }
+    }
+
+    private void notifyOnDialogPositiveClick(DialogFragment dialog, String id, ArrayList<ListItem> data)
+    {
+        for(ListDialogListener l : listeners)
+            l.onDialogPositiveClick(dialog, id, data);
+    }
+
+    private void notifyOnDialogNegativeClick(DialogFragment dialog, String id, ArrayList<ListItem> data)
+    {
+        for(ListDialogListener l : listeners)
+            l.onDialogNegativeClick(dialog, id, data);
     }
 }

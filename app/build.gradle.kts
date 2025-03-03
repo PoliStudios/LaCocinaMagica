@@ -14,7 +14,7 @@ android {
         }
     }
     namespace = "com.polistudios.lacocinamagica"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.polistudios.lacocinamagica"
@@ -36,8 +36,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {

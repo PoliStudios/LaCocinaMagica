@@ -9,6 +9,7 @@
 
     <string name="s_addRecipe_tvTitle">Title</string>
     <string name="s_addRecipe_tvDesc">Description</string>
+    <string name="s_addRecipe_tvCategory">Categories</string>
     <string name="s_addRecipe_tvPortions">Portions</string>
     <string name="s_addRecipe_tvTime">Time</string>
     <string name="s_addRecipe_tvMinutes">minutes</string>

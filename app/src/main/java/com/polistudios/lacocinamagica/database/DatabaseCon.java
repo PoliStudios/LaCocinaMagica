@@ -8,6 +8,9 @@ public class DatabaseCon
 {
     public AppDatabase instance(Context ctx)
     {
-        return Room.databaseBuilder(ctx, AppDatabase.class, "db").build();
+        return Room.databaseBuilder(ctx, AppDatabase.class, "db")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
     }
 }

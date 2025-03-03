@@ -48,6 +48,21 @@
                 android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
                 android:hint="Recipe short description..." />
 
+            <TextView
+                android:id="@+id/addRecipe_tvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_addRecipe_tvCategory" />
+
+            <EditText
+                android:id="@+id/addRecipe_etCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:enabled="true"
+                android:inputType="none" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +134,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine" />
+                android:inputType="none" />
 
             <TextView
                 android:id="@+id/addRecipe_tvSteps"
@@ -146,11 +161,12 @@
                 android:id="@+id/addRecipe_spDifficulty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:entries="@array/arr_difficulty"
                 android:padding="8dp" />
 
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/addRecipe_ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
