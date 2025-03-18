@@ -13,11 +13,11 @@ android {
             keyPassword = "Miguel1128#22"
         }
     }
-    namespace = "com.polistudios.lacocinamagica"
+    namespace = "com.polistudios.saborescompartidos"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.polistudios.lacocinamagica"
+        applicationId = "com.polistudios.saborescompartidos"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

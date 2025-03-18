@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "La Cocina Mágica"
+rootProject.name = "Sabores Compartidos"
 include(":app")
  

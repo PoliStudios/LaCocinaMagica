@@ -23,6 +23,16 @@
         <item>Hard</item>
     </string-array>
 
+    <string name="s_addRecipe_btnSave">Save</string>
+
+    <string name="s_err_noTitle">Title is required</string>
+    <string name="s_err_noIngredients">Ingredients are required</string>
+    <string name="s_err_noSteps">Steps are required</string>
+    <string name="s_err_noTime">Time is required</string>
+    <string name="s_err_noPortions">Portions are required</string>
+    <string name="s_err_timeInvalid">Time is invalid</string>
+    <string name="s_err_portionsInvalid">Portions are invalid</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
